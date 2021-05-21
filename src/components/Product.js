@@ -25,10 +25,8 @@ const Product = ({ id, title, price, description, category, image }) => {
             <StarIcon className="h-5 text-yellow-500 " />
           ))}
       </div>
-
-      <p className="text-xs my-2 line-clamp-2">
-        {description.slice(0, 100)}...
-      </p>
+      {/* line-clamp-2 not working on vercel*/}
+      <p className="text-xs my-2 ">{description.slice(0, 100)}...</p>
       <div>
         <Currency className="mb-3 " quantity={price} currency="ZAR" />
       </div>
