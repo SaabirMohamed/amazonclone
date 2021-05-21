@@ -6,7 +6,10 @@ import {
   MenuIcon,
   ShoppingCartIcon,
 } from "@heroicons/react/outline";
+import { selectItems } from "../slices/basketSlice";
+import { useSelector } from "react-redux";
 const Header = () => {
+  const items = useSelector(selectItems);
   const [session, loading] = useSession();
   const router = useRouter();
   return (
@@ -50,7 +53,7 @@ const Header = () => {
             className=" link relative flex items-center"
           >
             <span className="absolute top-0 right-0 md:right-10 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">
-              0
+              {items.length}
             </span>
             <ShoppingCartIcon className="h-10" />
             <p className="mt-2 hidden md:inline font-extrabold md:text-sm ">
