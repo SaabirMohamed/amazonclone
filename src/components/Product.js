@@ -22,7 +22,7 @@ const Product = ({ id, title, price, description, category, image }) => {
         {Array(rating)
           .fill()
           .map((_, i) => (
-            <StarIcon className="h-5 text-yellow-500 " />
+            <StarIcon key={i} className="h-5 text-yellow-500 " />
           ))}
       </div>
       {/* line-clamp-2 not working on vercel*/}
@@ -31,7 +31,7 @@ const Product = ({ id, title, price, description, category, image }) => {
         <Currency className="mb-3 " quantity={price} currency="ZAR" />
       </div>
       {hasPrime && (
-        <div className="flex items-center space-x-2 -mt-5 ">
+        <div className="flex items-center space-x-2 -mt-15 ">
           <img
             className="w-12"
             src="https://links.papareact.com/fdw"
