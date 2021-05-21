@@ -4,7 +4,9 @@ import { useSelector } from "react-redux";
 import { selectItems, selectTotal } from "../slices/basketSlice";
 import CheckoutProduct from "../components/CheckoutProduct";
 import Currency from "react-currency-formatter";
+import { useSession } from "next-auth/client";
 const Checkout = () => {
+  const [session, loading] = useSession();
   const items = useSelector(selectItems);
   const total = useSelector(selectTotal);
   console.log(items);
@@ -45,7 +47,11 @@ const Checkout = () => {
         </div>
 
         {/* right */}
-        <div>
+        <div
+          className={`flex flex-col bg-white p-10 shadow-md ${
+            items.length === 0 && "hidden"
+          }`}
+        >
           {items.length > 0 && (
             <>
               <h2 className="whitespace-nowrap m-5">
@@ -54,6 +60,15 @@ const Checkout = () => {
                   <Currency quantity={total} currency="ZAR" />
                 </span>
               </h2>
+              <button
+                disabled={!session}
+                className={`button m-2 ${
+                  !session &&
+                  "from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-allowed"
+                } `}
+              >
+                {!session ? "Sign in to checkout" : "Proceed to checkout"}
+              </button>
             </>
           )}
         </div>

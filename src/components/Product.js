@@ -18,8 +18,8 @@ const Product = ({
   const [rating] = useState(
     Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1) + MIN_RATING)
   );
-  const dispatch = useDispatch();
   const [hasPrime] = useState(Math.random() < 0.5);
+  const dispatch = useDispatch();
   const addItemToBasket = () => {
     const product = {
       id,
