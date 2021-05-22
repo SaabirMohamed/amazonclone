@@ -16,16 +16,15 @@ export default async (req, res) => {
   }));
 
   // give strip the checkout session
-  const session = await stripe.checkout.session.create({
+  // some other deleiver prices
+  // "shr_1ItxjJIbG4SNG3mUefmpEBmB",
+  //   "shr_1Itxk6IbG4SNG3mU3hab3HQL",
+  //   "shr_1ItxlKIbG4SNG3mUsErb3Aou",
+  const session = await stripe.checkout.sessions.create({
     payment_methiod_types: ["card"],
-    shipping_rates: [
-      "shr_1ItxhXIbG4SNG3mUB33kQ2P7",
-      "shr_1ItxjJIbG4SNG3mUefmpEBmB",
-      "shr_1Itxk6IbG4SNG3mU3hab3HQL",
-      "shr_1ItxlKIbG4SNG3mUsErb3Aou",
-    ],
+    shipping_rates: ["shr_1ItxhXIbG4SNG3mUB33kQ2P7"],
     line_items: transformedItems,
-    shipping_addresss_collection: {
+    shipping_address_collection: {
       allowed_countries: ["GB", "US", "CA"],
     },
     mode: "payment",
