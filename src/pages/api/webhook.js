@@ -53,9 +53,17 @@ export default async (req, res) => {
         // fullfill the order
         // put inside your database [MySql , firebase, mongo]
       }
+
       break;
 
     default:
       break;
   }
+};
+
+export const config = {
+  api: {
+    bodyParser: false,
+    externalResolver: true,
+  },
 };
