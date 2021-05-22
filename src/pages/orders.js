@@ -74,6 +74,7 @@ export async function getServerSideProps(context) {
       ).data,
     }))
   );
+  console.log(orders);
   return {
     props: {
       orders: orders,

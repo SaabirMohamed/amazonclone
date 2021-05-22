@@ -17,7 +17,8 @@ const fullfillOrder = async (session) => {
     .firestore()
     .collection("users")
     .doc(session.metadata.email)
-    .collection(session.id)
+    .collection("orders")
+    .doc(session.id)
     .set({
       amount: session.amount_total / 100,
       amount_shipping: session.total_details.amount_shipping / 100,
@@ -31,33 +32,31 @@ const fullfillOrder = async (session) => {
     });
 };
 export default async (req, res) => {
-  switch (req.method) {
-    case "POST":
-      const requestBuffer = await buffer(req);
-      const payload = requestBuffer.toString();
-      const sig = req.headers["stripe-signature"];
-      // check event from dstipe
-      let event;
-      try {
-        event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
-      } catch (error) {
-        res.status(400).send(`Webhook error ${error.message}`);
-      }
+  console.log(req.method);
+  if (req.method === "POST") {
+    const requestBuffer = await buffer(req);
+    const payload = requestBuffer.toString();
+    const sig = req.headers["stripe-signature"];
 
-      // handel the completed event from stripe
-      if (event.type === "checkout.session.completed") {
-        const session = event.data.object;
-        return fullfillOrder(session)
-          .then(() => res.status(200))
-          .catch((err) => res.status(400).send(`Webhook error ${err.message}`));
-        // fullfill the order
-        // put inside your database [MySql , firebase, mongo]
-      }
+    // check event from dstipe
+    let event;
+    try {
+      event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
+    } catch (error) {
+      res.status(400).send(`Webhook error ${error.message}`);
+    }
 
-      break;
-
-    default:
-      break;
+    // handel the completed event from stripe
+    console.log(event.type);
+    if (event.type === "checkout.session.completed") {
+      const session = event.data.object;
+      console.log(session);
+      return fullfillOrder(session)
+        .then(() => res.status(200))
+        .catch((err) => res.status(400).send(`Webhook error ${err.message}`));
+      // fullfill the order
+      // put inside your database [MySql , firebase, mongo]
+    }
   }
 };
 
