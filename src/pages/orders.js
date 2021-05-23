@@ -1,4 +1,5 @@
 import moment from "moment";
+import Head from "next/head";
 import { getSession, useSession } from "next-auth/client";
 import React from "react";
 import db from "../../firebase";
@@ -10,6 +11,9 @@ const Orders = ({ orders }) => {
 
   return (
     <div>
+      <Head>
+        <title>Orders page: Amazon clone by Saabir</title>
+      </Head>
       <Header />
       <main className="max-w-screen-lg mx-auto p-10">
         <h1 className="text-3xl border-b pb-1 border-yellow-400">

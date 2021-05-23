@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import Head from "next/head";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { selectItems, selectTotal } from "../slices/basketSlice";
@@ -31,6 +32,9 @@ const Checkout = () => {
   // console.log(items);
   return (
     <div className="bg-gray-100">
+      <Head>
+        <title>Checkout page: Amazon clone by Saabir</title>
+      </Head>
       <Header />
       <main className="lg:flex max-w-screen-2xl mx-auto">
         {/* left */}
