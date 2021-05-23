@@ -14,12 +14,14 @@ const Success = () => {
           <h1 className="pl-3">Successfully placed your order</h1>
         </div>
         <p>Thanks for shopping with us</p>
-        <button onClick={() => router.push("/orders")} className="button">
-          goto your orders
-        </button>
-        <button onClick={() => router.push("/")} className="button">
-          continue shopping ...
-        </button>
+        <div className="flex mt-3 space-x-7 align-middle justify-around content-between">
+          <button onClick={() => router.push("/orders")} className="button p-5">
+            review your orders
+          </button>
+          <button onClick={() => router.push("/")} className="button p-5 ">
+            back to shopping ...
+          </button>
+        </div>
       </main>
     </div>
   );
