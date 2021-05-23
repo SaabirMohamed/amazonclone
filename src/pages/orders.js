@@ -7,7 +7,7 @@ import Order from "../components/Order";
 
 const Orders = ({ orders }) => {
   const session = useSession();
-  console.log(orders);
+
   return (
     <div>
       <Header />
@@ -22,17 +22,19 @@ const Orders = ({ orders }) => {
         )}
         <div className="mt-5 space-y-4 ">
           {orders ? (
-            orders?.map((order) => {
-              <Order
-                id={order.id}
-                key={order.id}
-                amount={order.amount}
-                amountShipping={order.amountShipping}
-                images={order.images}
-                timestamp={order.timestamp}
-                items={order.items}
-              />;
-            })
+            orders.map(
+              ({ id, amount, amountShipping, images, timestamp, items }) => (
+                <Order
+                  id={id}
+                  key={id}
+                  amount={amount}
+                  amountShipping={amountShipping}
+                  images={images}
+                  timestamp={timestamp}
+                  items={items}
+                />
+              )
+            )
           ) : (
             <h1>Login to see your orders</h1>
           )}
@@ -76,7 +78,7 @@ export async function getServerSideProps(context) {
       ).data,
     }))
   );
-  // console.log(orders);
+  console.log(orders);
   return {
     props: {
       orders: orders,
